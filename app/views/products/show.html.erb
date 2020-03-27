@@ -1,0 +1,24 @@
+<% if @product.nil?  %>
+  <p>There are no categories available.</p>
+<% else%>
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-sm-6">
+          <figure class="">
+            <img src="<%= @product.image %>" alt="Image not found" width="380" height="400" onerror="this.onerror=null;this.src='http://www.purpicks.com/wp-content/uploads/2018/03/lotus-cosmetics-usa-eye-shadow-palette-smokey.png';" />
+          </figure>
+    </div>
+    <div class="col-sm-4">
+        <h1 class="title is-2"><%= @product.name %></h1>
+        <p class="content is-medium"><strong class="title is-4">Description:</strong> <%= @product.description %></p>
+        <p class="content is-medium"><strong class="title is-4">Price:</strong> $<%= @product.price %></p>
+        <p class="content is-medium"><strong class="title is-4">Category:</strong> <%= link_to @product.category.name.capitalize , category_path(@product.category),class: "has-text-primary"%></p>
+        <p class="content is-medium"><strong class="title is-4">Tags:</strong>
+             <% @product.tags.each do |tag| %>
+              <%= tag.name.capitalize %>,
+            <% end%>
+        </p>
+    </div>
+  </div>
+</div>
+<% end%>

@@ -1,0 +1,11 @@
+
+<%= form_with(url: search_path,local: true,class: "form-inline", method: "get") do %>
+
+  <div class="form-group col-xs-6 form-inline">
+       <%= text_field_tag(:search_term,nil,class:"form-control mr-sm-2") %>
+
+      <% category_array = Category.all { |category| [category.name, category.id] } %>
+      <%= select_tag(:category_id, options_from_collection_for_select(category_array,'id', 'name'),include_blank: "All",style: "text-transform: capitalize;",class: "form-control") %>
+      <%= submit_tag("Search",class:"btn btn-outline-success") %>
+  </div>
+<% end %>

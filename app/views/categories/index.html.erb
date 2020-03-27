@@ -1,0 +1,37 @@
+<% if @categories.empty?  %>
+  <p>There are no categories available.</p>
+<% else%>
+<div class="container pagination justify-content-center" >
+  <%= paginate @categories, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
+</div>
+
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col">
+    </div>
+        <div class="col col-8">
+        <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Product in Category</th>
+          </tr>
+        </thead>
+        <% @categories.each do |category|%>
+          <tr>
+          <td><%= link_to category.name.capitalize , category_path(category)%></td>
+          <td><%= category.products.size %> </td>
+          </tr>
+        <% end %>
+        </table>
+        </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
+
+
+<div class="container pagination justify-content-center" >
+  <%= paginate @categories, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
+</div>
+<% end%>

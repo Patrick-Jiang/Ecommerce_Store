@@ -1,0 +1,18 @@
+<% if @products.empty?  %>
+  <p>Can't find any product related to your search.</p>
+<% else%>
+<div class="row">
+    <% @products.each do |product|%>
+      <div class="col ">
+    <div class="card border-light mb-3" >
+      <img src="<%= product.image %>"  alt="Image not found" width="200" height="150" onerror="this.onerror=null;this.src='http://www.purpicks.com/wp-content/uploads/2018/03/lotus-cosmetics-usa-eye-shadow-palette-smokey.png';" />
+      <div class="card-body">
+        <h5 class="card-title"> <%= product.name.capitalize %></h5>
+        <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>
+        <%= link_to "Find Out More" , product_path(product)%>
+      </div>
+    </div>
+            </div>
+      <% end %>
+</div>
+<% end%>
