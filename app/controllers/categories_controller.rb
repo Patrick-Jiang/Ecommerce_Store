@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.includes(:products).find(params[:id])
+    @products = Category.includes(:products).find(params[:id]).products.page(params[:page])
 
     # @category = Kaminari.paginate_array([@category], total_count: @category.size).page(params[:page])
     # @pagy, @category = pagy(@category)
