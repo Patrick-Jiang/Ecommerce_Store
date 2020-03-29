@@ -24,6 +24,7 @@ uri = URI(url)
 response = Net::HTTP.get(uri)
 body_care = JSON.parse(response)
 body_care.each do |key|
+  puts(key[1]['name'])
   product = Product.create(name: key[1]['name'],
                            description: key[1]['description'],
                            price: key[1]['price'].to_f,

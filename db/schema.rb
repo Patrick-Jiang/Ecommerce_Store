@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_161557) do
-
-  create_table "Products", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.float "price"
-    t.string "image"
-    t.integer "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_products_on_category_id"
-  end
+ActiveRecord::Schema.define(version: 2020_03_29_165508) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "stree"
@@ -38,6 +27,20 @@ ActiveRecord::Schema.define(version: 2020_03_29_161557) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.float "orderPrice"
+    t.float "subTotal"
+    t.float "GST"
+    t.float "PST"
+    t.float "HST"
+    t.integer "product_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_orders_on_product_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -52,6 +55,17 @@ ActiveRecord::Schema.define(version: 2020_03_29_161557) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_product_tags_on_product_id"
     t.index ["tag_id"], name: "index_product_tags_on_tag_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "price"
+    t.string "image"
+    t.integer "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "provinces", force: :cascade do |t|
@@ -78,9 +92,11 @@ ActiveRecord::Schema.define(version: 2020_03_29_161557) do
     t.index ["address_id"], name: "index_users_on_address_id"
   end
 
-  add_foreign_key "Products", "categories"
   add_foreign_key "addresses", "provinces"
+  add_foreign_key "orders", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "product_tags", "products"
   add_foreign_key "product_tags", "tags"
+  add_foreign_key "products", "categories"
   add_foreign_key "users", "addresses"
 end
