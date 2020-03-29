@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_154851) do
+ActiveRecord::Schema.define(version: 2020_03_29_161557) do
 
   create_table "Products", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2020_03_29_154851) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "stree"
+    t.string "city"
+    t.integer "province_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["province_id"], name: "index_addresses_on_province_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -45,13 +54,33 @@ ActiveRecord::Schema.define(version: 2020_03_29_154851) do
     t.index ["tag_id"], name: "index_product_tags_on_tag_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.float "GST_rate"
+    t.float "PST_rate"
+    t.float "HST_rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password"
+    t.integer "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_users_on_address_id"
+  end
+
   add_foreign_key "Products", "categories"
+  add_foreign_key "addresses", "provinces"
   add_foreign_key "product_tags", "products"
   add_foreign_key "product_tags", "tags"
+  add_foreign_key "users", "addresses"
 end
