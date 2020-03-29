@@ -24,7 +24,6 @@ uri = URI(url)
 response = Net::HTTP.get(uri)
 body_care = JSON.parse(response)
 body_care.each do |key|
-  puts(key[1]['name'])
   product = Product.create(name: key[1]['name'],
                            description: key[1]['description'],
                            price: key[1]['price'].to_f,
@@ -103,4 +102,7 @@ SkinCares.each do |key|
                     tag_id: Tag.all.sample(1).first.id)
   ProductTag.create(product_id: product.id,
                     tag_id: Tag.all.sample(1).first.id)
+end
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 end

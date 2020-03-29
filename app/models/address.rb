@@ -1,4 +1,5 @@
-class Address < ApplicationRecord
+# frozen_string_literal: true
 
-  belongs_to :user
+class Address < ApplicationRecord
+  belongs_to :province
 end
