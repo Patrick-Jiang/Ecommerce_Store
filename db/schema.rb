@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_204105) do
+ActiveRecord::Schema.define(version: 2020_03_29_213408) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -75,11 +75,11 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.float "orderPrice"
-    t.float "subTotal"
-    t.float "GST"
-    t.float "PST"
-    t.float "HST"
+    t.integer "orderPrice"
+    t.integer "subTotal"
+    t.integer "GST"
+    t.integer "PST"
+    t.integer "HST"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.float "price"
+    t.integer "price"
     t.string "image"
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -124,9 +124,9 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
-    t.float "GST_rate"
-    t.float "PST_rate"
-    t.float "HST_rate"
+    t.integer "GST_rate"
+    t.integer "PST_rate"
+    t.integer "HST_rate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
