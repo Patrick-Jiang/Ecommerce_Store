@@ -2,7 +2,12 @@
 
 class Product < ApplicationRecord
   belongs_to :category
+
+  has_many :product_orders
+  has_many :orders, through: :product_orders
+
   has_many :product_tags
   has_many :tags, through: :product_tags
+  accepts_nested_attributes_for :product_tags, allow_destroy: true
   validates :name, presence: true
 end

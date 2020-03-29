@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_173458) do
+ActiveRecord::Schema.define(version: 2020_03_29_192443) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -59,11 +59,9 @@ ActiveRecord::Schema.define(version: 2020_03_29_173458) do
     t.float "GST"
     t.float "PST"
     t.float "HST"
-    t.integer "product_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_orders_on_product_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -72,6 +70,15 @@ ActiveRecord::Schema.define(version: 2020_03_29_173458) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "product_orders", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_product_orders_on_order_id"
+    t.index ["product_id"], name: "index_product_orders_on_product_id"
   end
 
   create_table "product_tags", force: :cascade do |t|
@@ -111,7 +118,7 @@ ActiveRecord::Schema.define(version: 2020_03_29_173458) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
-    t.string "password"
+    t.string "pwd"
     t.integer "address_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -119,8 +126,9 @@ ActiveRecord::Schema.define(version: 2020_03_29_173458) do
   end
 
   add_foreign_key "addresses", "provinces"
-  add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_orders", "orders"
+  add_foreign_key "product_orders", "products"
   add_foreign_key "product_tags", "products"
   add_foreign_key "product_tags", "tags"
   add_foreign_key "products", "categories"
