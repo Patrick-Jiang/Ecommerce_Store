@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'pages/show'
   # get 'products/index'
   # get 'products/show'
   # get 'categories/index'
@@ -16,6 +17,6 @@ Rails.application.routes.draw do
 
   get 'search', to: 'products#search', as: 'search'
 
-  resources :pages
-  get ':permalink', to: 'pages#permalink', as: 'permalink'
+  get 'about_us', to: 'pages#about', as: 'about'
+  get 'contact_us', to: 'pages#contact', as: 'contact'
 end
