@@ -104,3 +104,4 @@ SkinCares.each do |key|
   ProductTag.create(product_id: product.id,
                     tag_id: Tag.all.sample(1).first.id)
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
