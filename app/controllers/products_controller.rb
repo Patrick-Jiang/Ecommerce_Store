@@ -44,6 +44,7 @@ class ProductsController < ApplicationController
   end
 
   def load_cart
+    # @cart = ProductOrder.find(Order.where('user_id = ?', current_user.id).first.id)
     @cart = Product.find(session[:cart])
   end
 end

@@ -8,6 +8,7 @@
     <% @cart.each do |product| %>
       <li><%= product.name %> - <%= link_to 'Remove',remove_from_cart_path(product.id),method: :delete%></li>
     <% end %>
+    <%= button_to 'Buy Now',checkout_create_path,method: :post %>
   </ul>
 </details>
 
@@ -15,6 +16,13 @@
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
 </div>
+<% if current_user %>
+  <%= link_to 'Sign out', destroy_user_session_path,method: :delete %>
+<% else %>
+  <%= link_to 'Sign up', new_user_registration_path %>
+  <%= link_to 'Sign in', new_user_session_path %>
+<% end %>
+
 
 <div class="row">
     <% @products.each do |product|%>
@@ -31,10 +39,12 @@
         <p class="card-text">
             <strong>Price:</strong>
             <%= number_to_currency product.price %>
-            <% if @cart.include?(product) %>
-              <%= button_to 'Remove from cart',remove_from_cart_path(product.id),method: :delete%>
-            <% else %>
-              <%= link_to "Add to cart" , add_to_cart_path(product.id),method: :post %>
+            <% if current_user %>
+              <% if @cart.include?(product) %>
+                <%= button_to 'Remove from cart',remove_from_cart_path(product.id),method: :delete%>
+              <% else %>
+                <%= link_to "Add to cart" , add_to_cart_path(product.id),method: :post %>
+              <% end %>
             <% end %>
         </p>
         <%= link_to "Find Out More" , product_path(product)%>
