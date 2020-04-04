@@ -5,7 +5,12 @@
   <div class="row">
     <div class="col-sm-6">
           <figure class="">
-            <img src="<%= @product.image %>" alt="Image not found" width="380" height="400" onerror="this.onerror=null;this.src='http://www.purpicks.com/wp-content/uploads/2018/03/lotus-cosmetics-usa-eye-shadow-palette-smokey.png';" />
+            <% if @product.image.empty? %>
+                <%= image_tag @product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
+
+            <% else%>
+                <img src="<%= @product.image %>"  alt="Image not found" width="380" height="400" />
+            <% end %>
           </figure>
     </div>
     <div class="col-sm-4">

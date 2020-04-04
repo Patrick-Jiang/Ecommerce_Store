@@ -1,6 +1,6 @@
-<h2 class="title is-3"><%= @products.name.capitalize %></h2>
+<h2 class="title is-3"><%= @category.name.capitalize %></h2>
 <p class="content is-medium has-text-grey-darker">There are <%= @products.count %> product in this category.</p>
-<p class="content is-medium has-text-grey-darker">Product in <%= @products.name.capitalize %> are: </p>
+
 
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
@@ -13,7 +13,12 @@
     <% @products.each do |product|%>
       <div class="col ">
     <div class="card border-light mb-3" >
-      <img src="<%= product.image %>"  alt="Image not found" width="200" height="150" onerror="this.onerror=null;this.src='http://www.purpicks.com/wp-content/uploads/2018/03/lotus-cosmetics-usa-eye-shadow-palette-smokey.png';" />
+      <% if product.image.empty? %>
+        <%= image_tag product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
+
+    <% else%>
+        <img src="<%= product.image %>"  alt="Image not found" width="380" height="400" />
+    <% end %>
       <div class="card-body">
         <h5 class="card-title"> <%= product.name.capitalize %></h5>
         <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>

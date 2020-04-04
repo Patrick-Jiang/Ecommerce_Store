@@ -5,7 +5,11 @@
     <% @products.each do |product|%>
       <div class="col ">
     <div class="card border-light mb-3" >
-      <img src="<%= product.image %>"  alt="Image not found" width="200" height="150" onerror="this.onerror=null;this.src='http://www.purpicks.com/wp-content/uploads/2018/03/lotus-cosmetics-usa-eye-shadow-palette-smokey.png';" />
+        <% if product.image.empty? %>
+        <%= image_tag product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
+        <% else%>
+            <img src="<%= product.image %>"  alt="Image not found" width="380" height="400" />
+        <% end %>
       <div class="card-body">
         <h5 class="card-title"> <%= product.name.capitalize %></h5>
         <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>

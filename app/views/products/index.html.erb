@@ -16,6 +16,7 @@
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
 </div>
+
 <% if current_user %>
   <%= link_to 'Sign out', destroy_user_session_path,method: :delete %>
 <% else %>
