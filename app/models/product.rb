@@ -3,8 +3,8 @@
 class Product < ApplicationRecord
   belongs_to :category
 
-  has_many :product_orders
-  has_many :orders, through: :product_orders
+  has_many :order_details
+  has_many :orders, through: :order_details
 
   has_many :product_tags
   has_many :tags, through: :product_tags

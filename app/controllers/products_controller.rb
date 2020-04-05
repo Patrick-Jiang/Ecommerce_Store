@@ -27,15 +27,22 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     id = params[:id].to_i
-    session[:cart] << id unless session[:cart].include?(id)
-    redirect_to root_path
+
+    unless session[:cart].include?(id)
+      session[:cart] << id
+      redirect_to products_path
+    end
   end
+
+
 
   def remove_from_cart
     id = params[:id].to_i
-    session[:cart] .delete(id)
-    redirect_to root_path
+    session[:cart].delete(id)
+    redirect_to products_path
   end
+
+
 
   private
 
@@ -44,7 +51,6 @@ class ProductsController < ApplicationController
   end
 
   def load_cart
-    # @cart = ProductOrder.find(Order.where('user_id = ?', current_user.id).first.id)
     @cart = Product.find(session[:cart])
   end
 end

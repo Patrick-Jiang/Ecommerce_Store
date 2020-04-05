@@ -12,5 +12,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :address, :province, :province_id) }
 
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password) }
-end
+  end
+
+  # def current_user
+  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  # end
+
+  # def authenticate_user
+  #   redirect_to :login unless current_user
+  # end
 end

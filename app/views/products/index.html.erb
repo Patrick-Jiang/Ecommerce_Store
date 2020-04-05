@@ -2,16 +2,17 @@
   <p>There are no categories available.</p>
 <% else%>
 
-<details>
-  <Summary> Shopping Cart</Summary>
-  <ul>
-    <% @cart.each do |product| %>
-      <li><%= product.name %> - <%= link_to 'Remove',remove_from_cart_path(product.id),method: :delete%></li>
-    <% end %>
-    <%= button_to 'Buy Now',checkout_create_path,method: :post %>
-  </ul>
-</details>
-
+<% if current_user %>
+  <details>
+    <Summary> Shopping Cart</Summary>
+    <ul>
+      <% @cart.each do |product| %>
+        <li><%= product.name %> - <%= link_to 'Remove',remove_from_cart_path(product.id),method: :delete%></li>
+      <% end %>
+      <%= button_to 'Buy Now',checkout_create_path,method: :post %>
+    </ul>
+  </details>
+<% end %>
 
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>

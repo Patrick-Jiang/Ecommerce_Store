@@ -11,6 +11,10 @@ Tag.destroy_all
 Product.destroy_all
 Category.destroy_all
 Province.delete_all
+Page.delete_all
+
+Page.create(title: 'This is about page title', content: 'This is about page content')
+Page.create(title: 'This is contact page title', content: 'This is contact page content')
 
 Province.create(name: 'Alberta', pst_rate: 0, gst_rate: 5)
 Province.create(name: 'British Columbia', pst_rate: 7, gst_rate: 5)
