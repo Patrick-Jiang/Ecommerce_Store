@@ -10,6 +10,21 @@ ProductTag.destroy_all
 Tag.destroy_all
 Product.destroy_all
 Category.destroy_all
+Province.delete_all
+
+Province.create(name: 'Alberta', pst_rate: 0, gst_rate: 5)
+Province.create(name: 'British Columbia', pst_rate: 7, gst_rate: 5)
+Province.create(name: 'Manitoba', pst_rate: 8, gst_rate: 5)
+Province.create(name: 'New Brunswick', pst_rate: 10, gst_rate: 5, hst_rate: 15)
+Province.create(name: 'Newfoundland and Labrador', pst_rate: 10, gst_rate: 5, hst_rate: 15)
+Province.create(name: 'Northwest Territories', gst_rate: 5)
+Province.create(name: 'Nova Scotia', pst_rate: 10, gst_rate: 5, hst_rate: 15)
+Province.create(name: 'Nunavut', gst_rate: 5)
+Province.create(name: 'Ontario', pst_rate: 8, gst_rate: 5, hst_rate: 13)
+Province.create(name: 'Prince Edward Island', pst_rate: 10, gst_rate: 5, hst_rate: 15)
+Province.create(name: 'Québec', pst_rate: 9.975, gst_rate: 5)
+Province.create(name: 'Saskatchewan', pst_rate: 6, gst_rate: 5)
+Province.create(name: 'Yukon', gst_rate: 5)
 
 tags.each do |n|
   Tag.create(name: n)
