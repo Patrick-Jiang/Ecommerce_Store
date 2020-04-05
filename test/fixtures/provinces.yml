@@ -2,12 +2,12 @@
 
 one:
   name: MyString
-  GST_rate: 1.5
-  PST_rate: 1.5
-  HST_rate: 1.5
+  hst_rate: 9.99
+  gst_rate: 9.99
+  pst_rate: 9.99
 
 two:
   name: MyString
-  GST_rate: 1.5
-  PST_rate: 1.5
-  HST_rate: 1.5
+  hst_rate: 9.99
+  gst_rate: 9.99
+  pst_rate: 9.99

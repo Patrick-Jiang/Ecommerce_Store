@@ -2,9 +2,22 @@
   <p>There are no categories available.</p>
 <% else%>
 
+<details>
+  <Summary> Shopping Cart</Summary>
+  <ul>
+    <% @cart.each do |product| %>
+      <li><%= product.name %> - <%= link_to 'Remove',remove_from_cart_path(product.id),method: :delete%></li>
+    <% end %>
+    <%= button_to 'Buy Now',checkout_create_path,method: :post %>
+  </ul>
+</details>
+
+
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
 </div>
+
+
 
 <div class="row">
     <% @products.each do |product|%>
@@ -18,8 +31,19 @@
     <% end %>
       <div class="card-body">
         <h5 class="card-title"> <%= product.name.capitalize %></h5>
-        <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>
+        <p class="card-text">
+            <strong>Price:</strong>
+            <%= number_to_currency product.price %>
+            <% if current_user %>
+              <% if @cart.include?(product) %>
+                <%= button_to 'Remove from cart',remove_from_cart_path(product.id),method: :delete%>
+              <% else %>
+                <%= link_to "Add to cart" , add_to_cart_path(product.id),method: :post %>
+              <% end %>
+            <% end %>
+        </p>
         <%= link_to "Find Out More" , product_path(product)%>
+
       </div>
     </div>
             </div>

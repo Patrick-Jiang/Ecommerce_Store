@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_204105) do
+ActiveRecord::Schema.define(version: 2020_04_05_001816) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -47,15 +47,6 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "addresses", force: :cascade do |t|
-    t.string "stree"
-    t.string "city"
-    t.integer "province_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["province_id"], name: "index_addresses_on_province_id"
-  end
-
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -74,32 +65,11 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.float "orderPrice"
-    t.float "subTotal"
-    t.float "GST"
-    t.float "PST"
-    t.float "HST"
-    t.integer "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "product_orders", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "order_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_product_orders_on_order_id"
-    t.index ["product_id"], name: "index_product_orders_on_product_id"
   end
 
   create_table "product_tags", force: :cascade do |t|
@@ -114,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.float "price"
+    t.integer "price"
     t.string "image"
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -124,9 +94,9 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
-    t.float "GST_rate"
-    t.float "PST_rate"
-    t.float "HST_rate"
+    t.decimal "hst_rate"
+    t.decimal "gst_rate"
+    t.decimal "pst_rate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -138,21 +108,26 @@ ActiveRecord::Schema.define(version: 2020_03_29_204105) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "pwd"
-    t.integer "address_id", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_users_on_address_id"
+    t.integer "province_id"
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "postal_code"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "provinces"
-  add_foreign_key "orders", "users"
-  add_foreign_key "product_orders", "orders"
-  add_foreign_key "product_orders", "products"
   add_foreign_key "product_tags", "products"
   add_foreign_key "product_tags", "tags"
   add_foreign_key "products", "categories"
-  add_foreign_key "users", "addresses"
+  add_foreign_key "users", "provinces"
 end
