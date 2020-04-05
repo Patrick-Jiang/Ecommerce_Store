@@ -6,12 +6,12 @@ ActiveAdmin.register Province do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :GST_rate, :PST_rate, :HST_rate
+  permit_params :name, :hst_rate, :gst_rate, :pst_rate
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :GST_rate, :PST_rate, :HST_rate]
+  #   permitted = [:name, :hst_rate, :gst_rate, :pst_rate]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
