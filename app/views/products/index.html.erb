@@ -17,27 +17,16 @@
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
 </div>
 
-<<<<<<< HEAD
-<% if current_user %>
-  <%= link_to 'Sign out', destroy_user_session_path,method: :delete %>
-<% else %>
-  <%= link_to 'Sign up', new_user_registration_path %>
-  <%= link_to 'Sign in', new_user_session_path %>
-<% end %>
-=======
->>>>>>> ba0d329ed6a5638a2714ccb1cd1561b72fa9848a
-
 
 <div class="row">
     <% @products.each do |product|%>
       <div class="col ">
-    <div class="card border-light mb-3" >
-    <% if product.image.empty? %>
-        <%= image_tag product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
-
-    <% else%>
-        <img src="<%= product.image %>"  alt="Image not found" width="380" height="400" />
-    <% end %>
+        <div class="card border-light mb-3" >
+            <% if product.image.empty? %>
+              <%= image_tag product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
+            <% else%>
+              <img src="<%= product.image %>"  alt="Image not found" width="380" height="400" />
+            <% end %>
       <div class="card-body">
         <h5 class="card-title"> <%= product.name.capitalize %></h5>
         <p class="card-text">
@@ -52,7 +41,6 @@
             <% end %>
         </p>
         <%= link_to "Find Out More" , product_path(product)%>
-
       </div>
     </div>
             </div>
