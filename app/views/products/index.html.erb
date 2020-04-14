@@ -3,15 +3,10 @@
 <% else%>
 
 <% if current_user %>
-  <details>
-    <Summary> Shopping Cart</Summary>
-    <ul>
-      <% @cart.each do |product| %>
-        <li><%= product.name %> - <%= link_to 'Remove',remove_from_cart_path(product.id),method: :delete%></li>
-      <% end %>
-      <%= button_to 'Buy Now',checkout_create_path,method: :post %>
-    </ul>
-  </details>
+<div id = "cart">
+  <%= render 'carts/cart' %>
+</div>
+
 <% end %>
 
 <div class="container pagination justify-content-center" >
@@ -34,10 +29,10 @@
             <strong>Price:</strong>
             <%= number_to_currency product.price %>
             <% if current_user %>
-              <% if @cart.include?(product) %>
-                <%= button_to 'Remove from cart',remove_from_cart_path(product.id),method: :delete%>
-              <% else %>
-                <%= link_to "Add to cart" , add_to_cart_path(product.id),method: :post %>
+              <%= form_for @order_detail do |f| %>
+                <%= f.hidden_field :product_id, :value => product.id%>
+                <%= f.number_field :quantity, :vaue => 1, :min => 1 %>
+                <%= f.submit "Add to Cart" %>
               <% end %>
             <% end %>
         </p>

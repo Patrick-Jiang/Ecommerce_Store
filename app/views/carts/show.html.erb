@@ -1,0 +1,20 @@
+<% @order_details.each do |item| %>
+  <h3> <%= item.product.name %></h3>
+  <h5> The price is $ <%= item.product.price %></h5>
+
+
+
+    <%= form_for item, remote: true do |f| %>
+
+        <%= f.hidden_field :product_id, :value => item.product.id %>
+        <%= f.number_field :quantity, :value => item.quantity.to_i %>
+        <%= f.submit "Update Card "%>
+
+        <%= link_to "Remove Items", order_detail_path(item), method: :delete, remote: true%>
+
+    <% end %>
+    <h2>Subtotal : <%= item.total %></h2>
+<% end %>
+
+
+<h3>Your current card value has a subtotal before tax of: $<%= current_order.subtotal %></h3>

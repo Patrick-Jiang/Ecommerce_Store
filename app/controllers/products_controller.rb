@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  before_action :initialize_session
-  before_action :load_cart
-
   def index
     @products = Product.all.page(params[:page])
+    @order_detail = current_order.order_details.new if current_user
   end
 
   def show
@@ -23,34 +21,5 @@ class ProductsController < ApplicationController
                 end
 
     @products
-  end
-
-  def add_to_cart
-    id = params[:id].to_i
-
-    unless session[:cart].include?(id)
-      session[:cart] << id
-      redirect_to products_path
-    end
-  end
-
-
-
-  def remove_from_cart
-    id = params[:id].to_i
-    session[:cart].delete(id)
-    redirect_to products_path
-  end
-
-
-
-  private
-
-  def initialize_session
-    session[:cart] ||= []
-  end
-
-  def load_cart
-    @cart = Product.find(session[:cart])
   end
 end

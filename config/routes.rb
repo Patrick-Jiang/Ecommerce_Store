@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     get 'success', to: 'checkout#success', as: 'checkout_success'
   end
   root to: 'products#index'
-  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
-  delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
+
+  resource :carts, only: [:show]
+  resources :order_details
 
   get 'categories', to: 'categories#index', as: 'categories'
   get 'categories/:id', to: 'categories#show', id: /\d+/, as: 'category'
