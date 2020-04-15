@@ -30,4 +30,4 @@
 <h5>Postal Code: <%= @user.postal_code %></h5>
 <br>
 <h2>Your Order Status: <%= current_order.order_status %></h2>
-<%= button_to 'Buy Now' %>
+<%= button_to 'Buy Now', checkout_create_path, params: { id: current_order.id }, remote: true %>

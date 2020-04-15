@@ -2,25 +2,52 @@
 
 class CheckoutController < ApplicationController
   def create
-    # products = Product.find(session[:cart])
+    order = Order.find(params[:id])
+    user = User.find(order.user_id)
+    if order.nil?
+      redirect_to carts_path
+      return
+    end
 
-    # province = current_user.province
+    @session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          name: user.name,
+          description: user.address,
+          amount: (order.total * 100).to_i,
+          currency: 'cad',
+          quantity: 1
+        },
+        {
+          name: 'PST',
+          description: 'Manitoba Provincial Sales Tax',
+          amount: (order.order_pst * 100).to_i,
+          currency: 'cad',
+          quantity: 1
+        },
+        {
+          name: 'GST',
+          description: 'Federal Goods and Services Tax',
+          amount: (order.order_gst * 100).to_i,
+          currency: 'cad',
+          quantity: 1
+        }
+      ],
+      success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: checkout_cancel_url
+    )
 
-    # order = Order.create!(
-    #   order_status: 'Pending',
-    #   order_pst: province.pst_rate,
-    #   order_gst: province.gst_rate,
-    #   order_hst: province.hst_rate,
-    #   user_id: current_user.id
-    # )
+    respond_to do |format|
+      format.js
+    end
+  end
 
-    # products.each do |product|
-    #   OrderDetail.create!(
-    #     quantity: 1,
-    #     unit_price: product.price.to_i,
-    #     order_id: order.id,
-    #     product_id: product.id
-    #   )
-    # end
+  def success
+    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    @order = current_order
+    @order.order_status = 'Paid'
+    @order.save
   end
 end
