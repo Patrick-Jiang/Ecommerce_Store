@@ -1,10 +1,6 @@
 <h2 class="title is-3"><%= @category.name.capitalize %></h2>
 <p class="content is-medium has-text-grey-darker">There are <%= @products.count %> product in this category.</p>
-<<<<<<< HEAD
-
-=======
 <p class="content is-medium has-text-grey-darker">Product in <%= @category.name.capitalize %> are: </p>
->>>>>>> ba0d329ed6a5638a2714ccb1cd1561b72fa9848a
 
 <div class="container pagination justify-content-center" >
   <%= paginate @products, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm" %>
@@ -17,11 +13,7 @@
     <% @products.each do |product|%>
       <div class="col ">
     <div class="card border-light mb-3" >
-<<<<<<< HEAD
       <% if product.image.empty? %>
-=======
-       <% if product.image.empty? %>
->>>>>>> ba0d329ed6a5638a2714ccb1cd1561b72fa9848a
         <%= image_tag product.attachedimage.variant(resize_to_limit: [380, 400]).processed %>
 
     <% else%>
