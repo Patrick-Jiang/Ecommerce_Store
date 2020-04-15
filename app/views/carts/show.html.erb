@@ -13,7 +13,7 @@
     <h4>Total: $<%= item.total %></h4>
 <% end %>
 
-
+<br>
 <h1>Order Summary</h1>
 <h5>Your current card value has a subtotal before tax of: $<%= current_order.subtotal %></h5>
 <% if current_order.order_hst.nil?  %>
@@ -22,10 +22,12 @@
 <% else %>
   <h2>Your HST Rate: $<%= current_order.order_hst %></h2>
 <% end %>
-<h2>Your total : $<%= current_order.total %></h2>
-
+<br>
 <h2>Shipping Address</h2>
 <h5>Name: <%= @user.name %></h5>
 <h5>Address: <%= @user.address %></h5>
 <h5>City: <%= @user.city %></h5>
 <h5>Postal Code: <%= @user.postal_code %></h5>
+<br>
+<h2>Your Order Status: <%= current_order.order_status %></h2>
+<%= button_to 'Buy Now' %>
