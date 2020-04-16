@@ -20,8 +20,9 @@
   <h5>Your GST Rate: $<%= current_order.order_gst %></h5>
   <h5>Your PST Rate: $<%= current_order.order_pst %></h5>
 <% else %>
-  <h2>Your HST Rate: $<%= current_order.order_hst %></h2>
+  <h5>Your HST Rate: $<%= current_order.order_hst %></h5>
 <% end %>
+<h5>Your total: $<%= current_order.total %></h5>
 <br>
 <h2>Shipping Address</h2>
 <h5>Name: <%= @user.name %></h5>
